@@ -1,5 +1,12 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/jLukatar/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions)
+
+### INFO
+
+Project find difference between two json files
+
+### gendiff
+
 launch:
 ```
 gendiff
