@@ -2,13 +2,16 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/jLukatar/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions)",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jLukatar/frontend-project-46.git"
+  },
+  "bin": {
+    "gendiff": "bin/gendiff.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +20,7 @@
   },
   "homepage": "https://github.com/jLukatar/frontend-project-46#readme",
   "dependencies": {
-    "commander": "^10.0.1"
+    "commander": "^10.0.1",
+    "lodash": "^4.17.21"
   }
 }
