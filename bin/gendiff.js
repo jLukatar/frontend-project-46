@@ -11,14 +11,9 @@ program
   .arguments('<filepath1> <filepath2>');
 program.parse();
 
-const newWorkingDirectory = path.resolve(process.cwd()+"/frontend-project-46");
-process.chdir(newWorkingDirectory);
 
-const filePath1 = path.resolve(process.cwd(), program.args[0]);
-const filePath2 = path.resolve(process.cwd(), program.args[1]);
-
-const file1 = JSON.parse(fs.readFileSync(filePath1, 'utf-8'));
-const file2 = JSON.parse(fs.readFileSync(filePath2, 'utf-8'));
+const file1 = JSON.parse(fs.readFileSync(program.args[0], 'utf-8'));
+const file2 = JSON.parse(fs.readFileSync(program.args[1], 'utf-8'));
 
 const genDiff = (data1, data2) => {
   const space = " "; 
@@ -39,4 +34,3 @@ const genDiff = (data1, data2) => {
     return `{\n${result.join('\n')}\n}`;
   }
 console.log(genDiff(file1,file2));
-console.log(newWorkingDirectory);
