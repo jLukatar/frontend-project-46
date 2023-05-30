@@ -13,12 +13,15 @@ program.parse();
 const file1 = JSON.parse(fs.readFileSync(program.args[0], 'utf-8'));
 const file2 = JSON.parse(fs.readFileSync(program.args[1], 'utf-8'));
 
+const mergeAndSort = (data1, data2) => {
+  const mergedData = { ...data1, ...data2 };
+  return _.orderBy(Object.keys(mergedData));
+};
+
 const genDiff = (data1, data2) => {
   const space = ' ';
-  const mergedData = { ...data1, ...data2 };
-  const keys = Object.keys(mergedData);
-  const sortedKeys = _.orderBy(keys);
-  const result = sortedKeys.map((key) => {
+  const keys = mergeAndSort(data1, data2);
+  const result = keys.map((key) => {
     if (!Object.hasOwn(data1, key)) {
       return `${space.repeat(2)}+ ${key}: ${data2[key]}`;
     }
