@@ -1,7 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/jLukatar/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions)
 
-[![Test Workflow](https://github.com/jLukatar/frontend-project-46/workflows/jestTests/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions)
+[![hello-world](https://github.com/jLukatar/frontend-project-46/actions/workflows/jestTests.yml/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions/workflows/jestTests.yml)
 
 ### INFO
 
