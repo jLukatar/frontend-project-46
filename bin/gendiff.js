@@ -17,7 +17,8 @@ const genDiff = (data1, data2) => {
   const space = ' ';
   const mergedData = { ...data1, ...data2 };
   const keys = Object.keys(mergedData);
-  const result = _.orderBy(keys).map((key) => {
+  const sortedKeys = _.orderBy(keys);
+  const result = sortedKeys.map((key) => {
     if (!Object.hasOwn(data1, key)) {
       return `${space.repeat(2)}+ ${key}: ${data2[key]}`;
     }
