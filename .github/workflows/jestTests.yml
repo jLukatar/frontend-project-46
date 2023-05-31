@@ -22,6 +22,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: make install
       - run: npx eslint .
       - run: npm test
