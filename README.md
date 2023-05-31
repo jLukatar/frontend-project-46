@@ -1,5 +1,5 @@
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/jLukatar/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions)[![hello-world](https://github.com/jLukatar/frontend-project-46/actions/workflows/jestTests.yml/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions/workflows/jestTests.yml)
+[![Actions Status](https://github.com/jLukatar/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions)[![TestJest](https://github.com/jLukatar/frontend-project-46/actions/workflows/jestTests.yml/badge.svg?branch=main)](https://github.com/jLukatar/frontend-project-46/actions/workflows/jestTests.yml)[![ESlintChek](https://github.com/jLukatar/frontend-project-46/actions/workflows/eslint.yml/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions/workflows/eslint.yml)
 
 ### INFO
 
