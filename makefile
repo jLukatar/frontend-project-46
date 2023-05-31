@@ -3,4 +3,5 @@ gendiff:
 lint:
 	npx eslint .
 install:
-	composer install
+	install-deps
+	npx simple-git-hooks
