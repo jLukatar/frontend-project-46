@@ -1,4 +1,4 @@
-name: hello-world
+name: Tests
 on:
   - push
   - pull_request
