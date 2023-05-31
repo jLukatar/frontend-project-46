@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npx eslint .
-      - run: npm test
+      - run: npm test --test-reporter=spec
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v4.0.0
         env:
