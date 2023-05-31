@@ -12,6 +12,7 @@ program
   .action(async (filepath1, filepath2) => {
     const file1 = JSON.parse(await fs.promises.readFile(filepath1, 'utf-8'));
     const file2 = JSON.parse(await fs.promises.readFile(filepath2, 'utf-8'));
+    // eslint-disable-next-line no-console
     console.log(generateDifference(file1, file2));
   });
 program.parse();

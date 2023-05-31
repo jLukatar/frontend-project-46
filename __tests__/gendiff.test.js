@@ -1,4 +1,5 @@
-import genDiff from '../bin/generateDifference.js'
+// eslint-disable-next-line import/extensions
+import genDiff from '../bin/generateDifference.js';
 
 describe('genDiff', () => {
   test('should return {\n\n} string if both input objects are empty', () => {
