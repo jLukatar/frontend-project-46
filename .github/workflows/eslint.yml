@@ -1,4 +1,4 @@
-name: TestJest
+name: ESlintChek
 on: push
 jobs:
   build:
@@ -8,4 +8,4 @@ jobs:
     - name: Install modules
       run: npm
     - name: Run tests
-      run: npm test
+      run: npx eslint .
