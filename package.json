@@ -4,7 +4,7 @@
   "description": "[![Actions Status](https://github.com/jLukatar/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions)",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
