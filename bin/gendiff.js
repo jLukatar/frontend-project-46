@@ -4,6 +4,7 @@ import path from 'path';
 import { program } from 'commander';
 // eslint-disable-next-line import/extensions
 import generateDifference from '../src/generateDifference.js';
+// eslint-disable-next-line import/extensions
 import fileParse from '../src/fileParse.js';
 
 program
@@ -14,8 +15,6 @@ program
   .action(async (filepath1, filepath2) => {
     const file1 = fileParse(path.resolve(filepath1));
     const file2 = fileParse(path.resolve(filepath2));
-    //const file1 = JSON.parse(await fs.promises.readFile(filepath1, 'utf-8'));
-    //const file2 = JSON.parse(await fs.promises.readFile(filepath2, 'utf-8'));
     // eslint-disable-next-line no-console
     console.log(generateDifference(file1, file2));
   });
