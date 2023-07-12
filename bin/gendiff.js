@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import path from 'path';
-//import * as fs from 'fs';
 import { program } from 'commander';
 // eslint-disable-next-line import/extensions
 import generateDifference from '../src/generateDifference.js';
