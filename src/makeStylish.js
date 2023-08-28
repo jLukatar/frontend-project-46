@@ -1,42 +1,29 @@
-const makeStylish = (difference) => {
-  const space = ' ';
-  let output = '';
+const space = ' ';
+const stringifyValue = (obj, indent) => {
+  const keys = Object.keys(obj);
+  const indentString = space.repeat(indent);
 
-  const stringifyValue = (obj, indent) => {
-    const keys = Object.keys(obj);
-    const indentString = space.repeat(indent);
-    let result = '';
-
-    keys.forEach((key, index) => {
-      const value = obj[key];
-      let valueString;
-
-      if (typeof value === 'object' && value !== null) {
-        valueString = stringifyValue(value, indent + 4);
-      } else {
-        valueString = value;
-      }
-
-      if (index === 0) {
-        result += `{\n${indentString}  ${key}: ${valueString}\n`;
-      } else {
-        result += `${indentString}  ${key}: ${valueString}\n`;
-      }
-
-      if (index === keys.length - 1) {
-        result += `${space.repeat(indent - 2)}}`;
-      }
-    });
-
-    return result;
-  };
-
-  const processObjectValue = (value, indent) => {
+  const result = keys.map((key) => {
+    let valueString;
+    const value = obj[key];
     if (typeof value === 'object' && value !== null) {
-      return stringifyValue(value, indent);
+      valueString = stringifyValue(value, indent + 4);
+    } else {
+      valueString = value;
     }
-    return value;
-  };
+    return `${indentString}  ${key}: ${valueString}`;
+  });
+  return `{\n${result.join('\n')}\n${space.repeat(indent - 2)}}`;
+};
+
+const processObjectValue = (value, indent) => {
+  if (typeof value === 'object' && value !== null) {
+    return stringifyValue(value, indent);
+  }
+  return value;
+};
+const makeStylish = (difference) => {
+  let output = '';
 
   const iter = (diff, spaceCount = 2) => {
     const indentation = space.repeat(spaceCount);
