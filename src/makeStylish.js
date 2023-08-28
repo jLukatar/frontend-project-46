@@ -42,26 +42,27 @@ const makeStylish = (difference) => {
     const indentation = space.repeat(spaceCount);
     if (Array.isArray(diff)) {
       diff.sort((a, b) => a.key.localeCompare(b.key));
-      output = diff.map((element) => iter(element, spaceCount));
-      return output.join('');
+      output = diff
+        .map((element) => iter(element, spaceCount))
+        .join('');
     }
     if (['added', 'deleted'].includes(diff.status)) {
       const sign = (diff.status === 'added') ? '+' : '-';
       const valueString = processObjectValue(diff.value, spaceCount + 4);
-      return `\n${indentation}${sign} ${diff.key}: ${valueString}`;
+      output = `\n${indentation}${sign} ${diff.key}: ${valueString}`;
     }
     if (diff.status === 'unmodified') {
-      return `\n${indentation}  ${diff.key}: ${diff.value}`;
+      output = `\n${indentation}  ${diff.key}: ${diff.value}`;
     }
     if (diff.status === 'changed') {
       const valueBefore = processObjectValue(diff.valueBefore, spaceCount + 4);
       const valueAfter = processObjectValue(diff.valueAfter, spaceCount + 4);
-      return `\n${indentation}- ${diff.key}: ${valueBefore}\n${indentation}+ ${diff.key}: ${valueAfter}`;
+      output = `\n${indentation}- ${diff.key}: ${valueBefore}\n${indentation}+ ${diff.key}: ${valueAfter}`;
     }
     if (diff.status === 'nested') {
-      return `\n${indentation}  ${diff.key}: {${iter(diff.value, spaceCount + 4)}\n${indentation}  }`;
+      output = `\n${indentation}  ${diff.key}: {${iter(diff.value, spaceCount + 4)}\n${indentation}  }`;
     }
-    throw Error('unexpected case in input function');
+    return output;
   };
   return `{${iter(difference)}\n}`;
 };
