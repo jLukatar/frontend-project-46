@@ -18,3 +18,7 @@ JSON file example
 yaml file example 
 
 [![asciicast](https://asciinema.org/a/OnPd8cDS3IzBF9AlI7S5KB1LR.svg)](https://asciinema.org/a/OnPd8cDS3IzBF9AlI7S5KB1LR)
+
+Format option stylish (default) example
+
+[![asciicast](https://asciinema.org/a/nHMEpGuirjc2kDV09QVGjsWfb.svg)](https://asciinema.org/a/nHMEpGuirjc2kDV09QVGjsWfb)

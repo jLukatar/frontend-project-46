@@ -1,7 +1,7 @@
 import path from 'path';
 import process from 'process';
 // eslint-disable-next-line import/extensions
-import fileParse from '../src/fileParse.js';
+import fileParse from '../src/fileParse';
 
 describe('fileParse', () => {
   const sharedObject = {
