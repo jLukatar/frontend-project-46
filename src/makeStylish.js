@@ -2,7 +2,7 @@ const makeStylish = (difference) => {
   const space = ' ';
   let output = '';
 
-  const processUnchangedValues = (obj, indent) => {
+  const stringifyValue = (obj, indent) => {
     const keys = Object.keys(obj);
     const indentString = space.repeat(indent);
     let result = '';
@@ -12,7 +12,7 @@ const makeStylish = (difference) => {
       let valueString;
 
       if (typeof value === 'object' && value !== null) {
-        valueString = processUnchangedValues(value, indent + 4);
+        valueString = stringifyValue(value, indent + 4);
       } else {
         valueString = value;
       }
@@ -31,47 +31,35 @@ const makeStylish = (difference) => {
     return result;
   };
 
+  const processObjectValue = (value, indent) => {
+    if (typeof value === 'object' && value !== null) {
+      return stringifyValue(value, indent);
+    }
+    return value;
+  };
+
   const iter = (diff, spaceCount = 2) => {
+    const indentation = space.repeat(spaceCount);
     if (Array.isArray(diff)) {
       diff.sort((a, b) => a.key.localeCompare(b.key));
       output = diff.map((element) => iter(element, spaceCount));
       return output.join('');
     }
-    if (diff.status === 'added') {
-      if (typeof diff.value === 'object' && diff.value !== null) {
-        return `\n${space.repeat(spaceCount)}+ ${diff.key}: ${processUnchangedValues(diff.value, spaceCount + 4)}`;
-      }
-      return `\n${space.repeat(spaceCount)}+ ${diff.key}: ${diff.value}`;
-    }
-    if (diff.status === 'deleted') {
-      if (typeof diff.value === 'object' && diff.value !== null) {
-        return `\n${space.repeat(spaceCount)}- ${diff.key}: ${processUnchangedValues(diff.value, spaceCount + 4)}`;
-      }
-      return `\n${space.repeat(spaceCount)}- ${diff.key}: ${diff.value}`;
+    if (['added', 'deleted'].includes(diff.status)) {
+      const sign = (diff.status === 'added') ? '+' : '-';
+      const valueString = processObjectValue(diff.value, spaceCount + 4);
+      return `\n${indentation}${sign} ${diff.key}: ${valueString}`;
     }
     if (diff.status === 'unmodified') {
-      return `\n${space.repeat(spaceCount)}  ${diff.key}: ${diff.value}`;
+      return `\n${indentation}  ${diff.key}: ${diff.value}`;
     }
     if (diff.status === 'changed') {
-      let valueBefore = '';
-      let valueAfter = '';
-
-      if (typeof diff.valueBefore === 'object' && diff.valueBefore !== null) {
-        valueBefore = processUnchangedValues(diff.valueBefore, spaceCount + 4);
-      } else {
-        valueBefore = diff.valueBefore;
-      }
-
-      if (typeof diff.valueAfter === 'object' && diff.valueAfter !== null) {
-        valueAfter = processUnchangedValues(diff.valueAfter, spaceCount + 4);
-      } else {
-        valueAfter = diff.valueAfter;
-      }
-
-      return `\n${space.repeat(spaceCount)}- ${diff.key}: ${valueBefore}\n${space.repeat(spaceCount)}+ ${diff.key}: ${valueAfter}`;
+      const valueBefore = processObjectValue(diff.valueBefore, spaceCount + 4);
+      const valueAfter = processObjectValue(diff.valueAfter, spaceCount + 4);
+      return `\n${indentation}- ${diff.key}: ${valueBefore}\n${indentation}+ ${diff.key}: ${valueAfter}`;
     }
     if (diff.status === 'nested') {
-      return `\n${space.repeat(spaceCount)}  ${diff.key}: {${iter(diff.value, spaceCount + 4)}\n${space.repeat(spaceCount)}  }`;
+      return `\n${indentation}  ${diff.key}: {${iter(diff.value, spaceCount + 4)}\n${indentation}  }`;
     }
     throw Error('unexpected case in input function');
   };
