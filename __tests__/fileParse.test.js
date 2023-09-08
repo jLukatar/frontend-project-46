@@ -1,6 +1,4 @@
 import fs from 'fs';
-import path from 'path';
-import process from 'process';
 // eslint-disable-next-line import/extensions
 import fileParse from '../src/fileParse';
 

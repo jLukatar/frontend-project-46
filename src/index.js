@@ -19,4 +19,3 @@ const genDiff = (filepath1, filepath2, outputFormat = 'stylish') => {
 };
 
 export default genDiff;
-
