@@ -19,6 +19,10 @@ yaml file example
 
 [![asciicast](https://asciinema.org/a/OnPd8cDS3IzBF9AlI7S5KB1LR.svg)](https://asciinema.org/a/OnPd8cDS3IzBF9AlI7S5KB1LR)
 
-Format option stylish (default) example
+Format option 'stylish' (default) example
 
 [![asciicast](https://asciinema.org/a/nHMEpGuirjc2kDV09QVGjsWfb.svg)](https://asciinema.org/a/nHMEpGuirjc2kDV09QVGjsWfb)
+
+Format option 'plain' example
+
+[![asciicast](https://asciinema.org/a/7wqHQ2ZVhIgNwwnExMVsire0S.svg)](https://asciinema.org/a/7wqHQ2ZVhIgNwwnExMVsire0S)

@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import process from 'process';
 // eslint-disable-next-line import/extensions
@@ -10,17 +11,17 @@ describe('fileParse', () => {
   };
 
   test('should parse yaml file correctly', () => {
-    const parsedObject = fileParse(path.resolve(process.cwd(), '__tests__/testFiles/yamlFile.yaml'));
+    const parsedObject = fileParse(fs.readFileSync('__fixtures__/yamlFile.yaml'), '.yaml');
     expect(parsedObject).toEqual(sharedObject);
   });
 
   test('should parse yml file correctly', () => {
-    const parsedObject = fileParse(path.resolve(process.cwd(), '__tests__/testFiles/ymlFile.yml'));
+    const parsedObject = fileParse(fs.readFileSync('__fixtures__/ymlFile.yml'), '.yml');
     expect(parsedObject).toEqual(sharedObject);
   });
 
   test('should parse JSON file correctly', () => {
-    const parsedObject = fileParse(path.resolve(process.cwd(), '__tests__/testFiles/jsonFile.json'));
+    const parsedObject = fileParse(fs.readFileSync('__fixtures__/jsonFile.json'), '.json');
     expect(parsedObject).toEqual(sharedObject);
   });
 });

@@ -14,8 +14,12 @@ describe('genDiff', () => {
     const objAfter = { a: 1, b: 2 };
     const result = genDiff(objBefore, objAfter);
     expect(result).toEqual([
-      { key: 'a', value: 1, status: 'unmodified' },
-      { key: 'b', value: 2, status: 'added' },
+      {
+        key: 'a', value: 1, status: 'unmodified', path: 'a',
+      },
+      {
+        key: 'b', value: 2, status: 'added', path: 'b',
+      },
     ]);
   });
 
@@ -24,8 +28,12 @@ describe('genDiff', () => {
     const objAfter = { a: 1 };
     const result = genDiff(objBefore, objAfter);
     expect(result).toEqual([
-      { key: 'a', value: 1, status: 'unmodified' },
-      { key: 'b', value: 2, status: 'deleted' },
+      {
+        key: 'a', value: 1, status: 'unmodified', path: 'a',
+      },
+      {
+        key: 'b', value: 2, status: 'deleted', path: 'b',
+      },
     ]);
   });
 
@@ -37,12 +45,19 @@ describe('genDiff', () => {
       {
         key: 'a',
         value: [
-          { key: 'x', value: 1, status: 'unmodified' },
-          { key: 'y', value: 2, status: 'added' },
+          {
+            key: 'x', value: 1, status: 'unmodified', path: 'a.x',
+          },
+          {
+            key: 'y', value: 2, status: 'added', path: 'a.y',
+          },
         ],
         status: 'nested',
+        path: 'a',
       },
-      { key: 'b', value: 2, status: 'unmodified' },
+      {
+        key: 'b', value: 2, status: 'unmodified', path: 'b',
+      },
     ]);
   });
 
@@ -51,9 +66,11 @@ describe('genDiff', () => {
     const objAfter = { a: 1, b: 'world' };
     const result = genDiff(objBefore, objAfter);
     expect(result).toEqual([
-      { key: 'a', value: 1, status: 'unmodified' },
       {
-        key: 'b', valueBefore: 'hello', valueAfter: 'world', status: 'changed',
+        key: 'a', value: 1, status: 'unmodified', path: 'a',
+      },
+      {
+        key: 'b', valueBefore: 'hello', valueAfter: 'world', status: 'changed', path: 'b',
       },
     ]);
   });

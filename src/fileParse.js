@@ -1,17 +1,15 @@
-import * as fs from 'fs';
-import path from 'path';
 import yaml from 'js-yaml';
 
-const fileParse = (filePath) => {
-  switch (path.extname(filePath)) {
+const fileParse = (data, extension) => {
+  switch (extension) {
     case '.yaml':
-      return yaml.load(fs.readFileSync(filePath, 'utf8'));
+      return yaml.load(data);
     case '.yml':
-      return yaml.load(fs.readFileSync(filePath, 'utf8'));
+      return yaml.load(data);
     case '.json':
-      return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      return JSON.parse(data);
     default:
-      throw new Error(`Unsupported file extension: ${path.extname(filePath)}`);
+      throw new Error(`Unsupported file extension: ${extension}`);
   }
 };
 

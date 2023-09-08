@@ -1,4 +1,5 @@
 const space = ' ';
+
 const stringifyValue = (obj, indent) => {
   const keys = Object.keys(obj);
   const indentString = space.repeat(indent);
@@ -22,6 +23,7 @@ const processObjectValue = (value, indent) => {
   }
   return value;
 };
+
 const makeStylish = (difference) => {
   let output = '';
 
@@ -30,13 +32,15 @@ const makeStylish = (difference) => {
     if (Array.isArray(diff)) {
       diff.sort((a, b) => a.key.localeCompare(b.key));
       output = diff
-        .map((element) => iter(element, spaceCount))
-        .join('');
+        .map((element) => iter(element, spaceCount)).join('');
     }
-    if (['added', 'deleted'].includes(diff.status)) {
-      const sign = (diff.status === 'added') ? '+' : '-';
+    if (diff.status === 'added') {
       const valueString = processObjectValue(diff.value, spaceCount + 4);
-      output = `\n${indentation}${sign} ${diff.key}: ${valueString}`;
+      output = `\n${indentation}+ ${diff.key}: ${valueString}`;
+    }
+    if (diff.status === 'deleted') {
+      const valueString = processObjectValue(diff.value, spaceCount + 4);
+      output = `\n${indentation}- ${diff.key}: ${valueString}`;
     }
     if (diff.status === 'unmodified') {
       output = `\n${indentation}  ${diff.key}: ${diff.value}`;
