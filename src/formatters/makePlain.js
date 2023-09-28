@@ -1,4 +1,4 @@
-const processValue = (value) => {
+const stringify = (value) => {
   if (typeof value === 'string') {
     return `'${value}'`;
   } if (typeof value === 'object' && value !== null) {
@@ -6,28 +6,35 @@ const processValue = (value) => {
   }
   return value;
 };
-const makePlain = (difference) => {
-  const iter = (diff) => {
-    if (Array.isArray(diff)) {
-      diff.sort((a, b) => a.key.localeCompare(b.key));
-      return diff
-        .map((element) => iter(element)).join('');
+const getName = (name, key) => (name !== '' ? `${name}.${key}` : key);
+
+const iter = (diff, propertyName) => diff
+  .sort((a, b) => a.key.localeCompare(b.key))
+  .map((node) => {
+    switch (node.status) {
+      case 'added': {
+        return `Property '${getName(propertyName, node.key)}' was added with value: ${stringify(node.value)}`;
+      }
+      case 'removed': {
+        return `Property '${getName(propertyName, node.key)}' was removed`;
+      }
+      case 'changed': {
+        return `Property '${getName(propertyName, node.key)}' was updated. From ${stringify(node.valueBefore)} to ${stringify(node.valueAfter)}`;
+      }
+      case 'unchanged': {
+        return null;
+      }
+      case 'nested': {
+        return iter(node.children, getName(propertyName, node.key));
+      }
+      default: {
+        throw new Error(`Wrong node type: ${node.status}.`);
+      }
     }
-    if (diff.status === 'added') {
-      return `Property '${diff.path}' was added with value: ${processValue(diff.value)}\n`;
-    }
-    if (diff.status === 'deleted') {
-      return `Property '${diff.path}' was removed\n`;
-    }
-    if (diff.status === 'changed') {
-      return `Property '${diff.path}' was updated. From ${processValue(diff.valueBefore)} to ${processValue(diff.valueAfter)}\n`;
-    }
-    if (diff.status === 'nested') {
-      return iter(diff.value);
-    }
-    return '';
-  };
-  return iter(difference).slice(0, -1);
-};
+  })
+  .filter(Boolean)
+  .join('\n');
+
+const makePlain = (difference) => iter(difference, '');
 
 export default makePlain;

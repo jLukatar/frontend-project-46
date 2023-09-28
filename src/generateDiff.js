@@ -1,36 +1,40 @@
-const generateObjectChanged = (key, valueBefore, valueAfter, status, path) => (
-  {
-    key, valueBefore, valueAfter, status, path: path.join('.'),
-  });
-const generateObjectPlain = (key, value, status, path) => (
-  {
-    key, value, status, path: path.join('.'),
-  });
+import _ from 'lodash';
 
-const genDiff = (objBefore, objAfter, path = []) => {
+const generateObjectChanged = (key, valueBefore, valueAfter, status) => (
+  {
+    key, valueBefore, valueAfter, status,
+  });
+const generateObjectPlain = (key, value, status) => {
+  if (status === 'nested') {
+    return {
+      key, children: value, status,
+    };
+  }
+  return {
+    key, value, status,
+  };
+};
+
+const genDiff = (objBefore, objAfter) => {
   const beforeKeys = Object.keys(objBefore);
   const afterKeys = Object.keys(objAfter);
-  const mergedKeys = [...beforeKeys, ...afterKeys]
-    .filter((key, index, array) => array.indexOf(key) === index);
-
+  const mergedKeys = _.sortBy(_.union(beforeKeys, afterKeys));
   return mergedKeys
     .map((key) => {
-      const currentPath = [...path, key];
-
       if (!Object.hasOwn(objBefore, key)) {
-        return generateObjectPlain(key, objAfter[key], 'added', currentPath);
+        return generateObjectPlain(key, objAfter[key], 'added');
       }
       if (!Object.hasOwn(objAfter, key)) {
-        return generateObjectPlain(key, objBefore[key], 'deleted', currentPath);
+        return generateObjectPlain(key, objBefore[key], 'removed');
       }
-      if (typeof objBefore[key] === 'object' && objBefore[key] !== null && typeof objAfter[key] === 'object' && objAfter[key] !== null) {
-        const value = genDiff(objBefore[key], objAfter[key], currentPath);
-        return generateObjectPlain(key, value, 'nested', currentPath);
+      if (_.isPlainObject(objBefore[key]) && _.isPlainObject(objAfter[key])) {
+        const value = genDiff(objBefore[key], objAfter[key]);
+        return generateObjectPlain(key, value, 'nested');
       }
       if (objBefore[key] === objAfter[key]) {
-        return generateObjectPlain(key, objBefore[key], 'unmodified', currentPath);
+        return generateObjectPlain(key, objBefore[key], 'unchanged');
       }
-      return generateObjectChanged(key, objBefore[key], objAfter[key], 'changed', currentPath);
+      return generateObjectChanged(key, objBefore[key], objAfter[key], 'changed');
     });
 };
 

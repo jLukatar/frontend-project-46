@@ -9,6 +9,9 @@ const outputDiff = (diff, format) => {
   if (format === 'plain') {
     return makePlain(diff);
   }
+  if (format === 'json') {
+    return JSON.stringify(diff);
+  }
   throw new Error(`Wrong output format: ${format}`);
 };
 

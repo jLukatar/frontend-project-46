@@ -26,3 +26,7 @@ Format option 'stylish' (default) example
 Format option 'plain' example
 
 [![asciicast](https://asciinema.org/a/7wqHQ2ZVhIgNwwnExMVsire0S.svg)](https://asciinema.org/a/7wqHQ2ZVhIgNwwnExMVsire0S)
+
+Format option 'json'  example
+
+[![asciicast](https://asciinema.org/a/FL3yKN5FzjxJYkFDKBzgOW1oZ.svg)](https://asciinema.org/a/FL3yKN5FzjxJYkFDKBzgOW1oZ)

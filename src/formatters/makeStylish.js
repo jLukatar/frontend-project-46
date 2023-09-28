@@ -38,11 +38,11 @@ const makeStylish = (difference) => {
       const valueString = processObjectValue(diff.value, spaceCount + 4);
       output = `\n${indentation}+ ${diff.key}: ${valueString}`;
     }
-    if (diff.status === 'deleted') {
+    if (diff.status === 'removed') {
       const valueString = processObjectValue(diff.value, spaceCount + 4);
       output = `\n${indentation}- ${diff.key}: ${valueString}`;
     }
-    if (diff.status === 'unmodified') {
+    if (diff.status === 'unchanged') {
       output = `\n${indentation}  ${diff.key}: ${diff.value}`;
     }
     if (diff.status === 'changed') {
@@ -51,7 +51,7 @@ const makeStylish = (difference) => {
       output = `\n${indentation}- ${diff.key}: ${valueBefore}\n${indentation}+ ${diff.key}: ${valueAfter}`;
     }
     if (diff.status === 'nested') {
-      output = `\n${indentation}  ${diff.key}: {${iter(diff.value, spaceCount + 4)}\n${indentation}  }`;
+      output = `\n${indentation}  ${diff.key}: {${iter(diff.children, spaceCount + 4)}\n${indentation}  }`;
     }
     return output;
   };

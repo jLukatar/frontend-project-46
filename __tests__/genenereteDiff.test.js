@@ -15,24 +15,24 @@ describe('genDiff', () => {
     const result = genDiff(objBefore, objAfter);
     expect(result).toEqual([
       {
-        key: 'a', value: 1, status: 'unmodified', path: 'a',
+        key: 'a', value: 1, status: 'unchanged',
       },
       {
-        key: 'b', value: 2, status: 'added', path: 'b',
+        key: 'b', value: 2, status: 'added',
       },
     ]);
   });
 
-  it('should correctly identify deleted properties', () => {
+  it('should correctly identify removed properties', () => {
     const objBefore = { a: 1, b: 2 };
     const objAfter = { a: 1 };
     const result = genDiff(objBefore, objAfter);
     expect(result).toEqual([
       {
-        key: 'a', value: 1, status: 'unmodified', path: 'a',
+        key: 'a', value: 1, status: 'unchanged',
       },
       {
-        key: 'b', value: 2, status: 'deleted', path: 'b',
+        key: 'b', value: 2, status: 'removed',
       },
     ]);
   });
@@ -44,19 +44,18 @@ describe('genDiff', () => {
     expect(result).toEqual([
       {
         key: 'a',
-        value: [
+        children: [
           {
-            key: 'x', value: 1, status: 'unmodified', path: 'a.x',
+            key: 'x', value: 1, status: 'unchanged',
           },
           {
-            key: 'y', value: 2, status: 'added', path: 'a.y',
+            key: 'y', value: 2, status: 'added',
           },
         ],
         status: 'nested',
-        path: 'a',
       },
       {
-        key: 'b', value: 2, status: 'unmodified', path: 'b',
+        key: 'b', value: 2, status: 'unchanged',
       },
     ]);
   });
@@ -67,10 +66,10 @@ describe('genDiff', () => {
     const result = genDiff(objBefore, objAfter);
     expect(result).toEqual([
       {
-        key: 'a', value: 1, status: 'unmodified', path: 'a',
+        key: 'a', value: 1, status: 'unchanged',
       },
       {
-        key: 'b', valueBefore: 'hello', valueAfter: 'world', status: 'changed', path: 'b',
+        key: 'b', valueBefore: 'hello', valueAfter: 'world', status: 'changed',
       },
     ]);
   });
