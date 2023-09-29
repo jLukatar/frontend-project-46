@@ -17,5 +17,5 @@ describe('outputDiff', () => {
   it('should format the diff in JSON format', async () => {
     const formattedDiff = outputDiff(sampleInput, 'json');
     expect(formattedDiff).toBe((await fs.readFile('./__fixtures__/diffJSON.txt', 'utf-8')).toString());
-});
+  });
 });
