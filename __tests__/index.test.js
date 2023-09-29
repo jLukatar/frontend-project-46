@@ -2,7 +2,6 @@
 import fs from 'fs/promises';
 import outputDiff from '../src/formatters/index.js';
 import sampleInput from '../__fixtures__/diffArray.js';
-import expectedJsonOutput from '../__fixtures__/diffJSON.json';
 
 describe('outputDiff', () => {
   it('should format the diff in stylish format', async () => {
@@ -17,6 +16,6 @@ describe('outputDiff', () => {
 
   it('should format the diff in JSON format', async () => {
     const formattedDiff = outputDiff(sampleInput, 'json');
-    expect(formattedDiff).toBe(JSON.stringify(expectedJsonOutput));
-  });
+    expect(formattedDiff).toBe((await fs.readFile('./__fixtures__/diffJSON.txt', 'utf-8')).toString());
+});
 });
