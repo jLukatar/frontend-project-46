@@ -9,7 +9,6 @@ const stringify = (value) => {
 const getName = (name, key) => (name !== '' ? `${name}.${key}` : key);
 
 const iter = (diff, propertyName) => diff
-  .sort((a, b) => a.key.localeCompare(b.key))
   .map((node) => {
     switch (node.status) {
       case 'added': {
