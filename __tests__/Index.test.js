@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import genDiff from '../src/index';
+import genDiff from '../src/index.js';
 
 const readFileContent = async (filename) => {
   const filePath = path.resolve(process.cwd(), '__fixtures__', filename);
