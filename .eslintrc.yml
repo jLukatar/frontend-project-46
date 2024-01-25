@@ -8,5 +8,5 @@ parserOptions:
   ecmaVersion: latest
   sourceType: module
 rules:
-  import/extensions: error  
+  import/extensions: ['error', 'always', {ignorePackages: true} ] 
   no-console: warn 
