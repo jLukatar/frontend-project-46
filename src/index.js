@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import parse from './getData';
+import parse from './getData.js';
 import generateDiff from './generateDiff.js';
 import outputDiff from './formatters/index.js';
 
