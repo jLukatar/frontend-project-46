@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/jLukatar/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/jLukatar/frontend-project-46/actions)",
+  "description": "A utility for comparing two JSON or YAML files.",
   "type": "module",
   "scripts": {
     "test": "jest"

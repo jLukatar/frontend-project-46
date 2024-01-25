@@ -1,18 +1,17 @@
-/* eslint-disable import/extensions */
 import makePlain from './makePlain.js';
 import makeStylish from './makeStylish.js';
 
-const outputDiff = (diff, format) => {
-  if (format === 'stylish') {
-    return makeStylish(diff);
+const getDiff = (diff, format) => {
+  switch (format) {
+    case 'stylish':
+      return makeStylish(diff);
+    case 'plain':
+      return makePlain(diff);
+    case 'json':
+      return JSON.stringify(diff);
+    default:
+      throw new Error(`Wrong output format: ${format}`);
   }
-  if (format === 'plain') {
-    return makePlain(diff);
-  }
-  if (format === 'json') {
-    return JSON.stringify(diff);
-  }
-  throw new Error(`Wrong output format: ${format}`);
 };
 
-export default outputDiff;
+export default getDiff;

@@ -18,7 +18,7 @@ const iter = (diff, propertyName) => diff
         return `Property '${getName(propertyName, node.key)}' was removed`;
       }
       case 'changed': {
-        return `Property '${getName(propertyName, node.key)}' was updated. From ${stringify(node.valueBefore)} to ${stringify(node.valueAfter)}`;
+        return `Property '${getName(propertyName, node.key)}' was updated. From ${stringify(node.firstObjValue)} to ${stringify(node.secondObjValue)}`;
       }
       case 'unchanged': {
         return null;

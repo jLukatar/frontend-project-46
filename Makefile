@@ -1,7 +1,6 @@
 gendiff:
 	node bin/gendiff.js
 install: install-deps
-	npx simple-git-hooks
 
 install-deps:
 	npm ci
