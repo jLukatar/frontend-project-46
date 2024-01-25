@@ -44,4 +44,3 @@ const makeStylish = (difference) => {
   return `{\n${difference.map((element) => iter(element)).join('\n')}\n}`;
 };
 export default makeStylish;
-

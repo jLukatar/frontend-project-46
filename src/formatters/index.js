@@ -1,5 +1,5 @@
-import makePlain from './makePlain.js';
-import makeStylish from './makeStylish.js';
+import makePlain from './makePlain';
+import makeStylish from './makeStylish';
 
 const getDiff = (diff, format) => {
   switch (format) {
