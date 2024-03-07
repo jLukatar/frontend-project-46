@@ -1,45 +1,45 @@
 import _ from 'lodash';
 
-const genDiff = (firstObj, secondObj) => {
-  const beforeKeys = Object.keys(firstObj);
-  const afterKeys = Object.keys(secondObj);
-  const mergedKeys = _.sortBy(_.union(beforeKeys, afterKeys));
+const genDiff = (data1, data2) => {
+  const data1Keys = Object.keys(data1);
+  const data2Keys = Object.keys(data2);
+  const mergedKeys = _.sortBy(_.union(data1Keys, data2Keys));
 
   return mergedKeys.map((key) => {
-    if (!Object.hasOwnProperty.call(firstObj, key)) {
+    if (!Object.hasOwnProperty.call(data1, key)) {
       return {
         key,
-        value: secondObj[key],
-        status: 'added',
+        value: data2[key],
+        type: 'added',
       };
     }
-    if (!Object.hasOwnProperty.call(secondObj, key)) {
+    if (!Object.hasOwnProperty.call(data2, key)) {
       return {
         key,
-        value: firstObj[key],
-        status: 'removed',
+        value: data1[key],
+        type: 'removed',
       };
     }
-    if (_.isPlainObject(firstObj[key]) && _.isPlainObject(secondObj[key])) {
-      const value = genDiff(firstObj[key], secondObj[key]);
+    if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
+      const children = genDiff(data1[key], data2[key]);
       return {
         key,
-        children: value,
-        status: 'nested',
+        children,
+        type: 'nested',
       };
     }
-    if (_.isEqual(firstObj[key], secondObj[key])) {
+    if (_.isEqual(data1[key], data2[key])) {
       return {
         key,
-        value: firstObj[key],
-        status: 'unchanged',
+        value: data1[key],
+        type: 'unchanged',
       };
     }
     return {
       key,
-      firstObjValue: firstObj[key],
-      secondObjValue: secondObj[key],
-      status: 'changed',
+      value1: data1[key],
+      value2: data2[key],
+      type: 'changed',
     };
   });
 };

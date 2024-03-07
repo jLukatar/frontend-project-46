@@ -17,28 +17,28 @@ const makeStylish = (difference) => {
   const iter = (diff, spaceCount = 2) => {
     const indentation = ' '.repeat(spaceCount);
 
-    if (diff.status === 'added') {
+    if (diff.type === 'added') {
       const valueString = processValue(diff.value, spaceCount + 4);
       return `${indentation}+ ${diff.key}: ${valueString}`;
     }
-    if (diff.status === 'removed') {
+    if (diff.type === 'removed') {
       const valueString = processValue(diff.value, spaceCount + 4);
       return `${indentation}- ${diff.key}: ${valueString}`;
     }
-    if (diff.status === 'unchanged') {
+    if (diff.type === 'unchanged') {
       return `${indentation}  ${diff.key}: ${diff.value}`;
     }
-    if (diff.status === 'changed') {
-      const firstObjValue = processValue(diff.firstObjValue, spaceCount + 4);
-      const secondObjValue = processValue(diff.secondObjValue, spaceCount + 4);
-      return `${indentation}- ${diff.key}: ${firstObjValue}\n${indentation}+ ${diff.key}: ${secondObjValue}`;
+    if (diff.type === 'changed') {
+      const value1 = processValue(diff.value1, spaceCount + 4);
+      const value2 = processValue(diff.value2, spaceCount + 4);
+      return `${indentation}- ${diff.key}: ${value1}\n${indentation}+ ${diff.key}: ${value2}`;
     }
-    if (diff.status === 'nested') {
+    if (diff.type === 'nested') {
       const children = diff.children.map((element) => iter(element, spaceCount + 4)).join('\n');
       return `${indentation}  ${diff.key}: {\n${children}\n${indentation}  }`;
     }
 
-    throw new Error(`Unhandled diff status: ${diff.status}`);
+    throw new Error(`Unhandled diff type: ${diff.type}`);
   };
 
   return `{\n${difference.map((element) => iter(element)).join('\n')}\n}`;

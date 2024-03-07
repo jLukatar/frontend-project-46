@@ -10,7 +10,7 @@ const getName = (name, key) => (name !== '' ? `${name}.${key}` : key);
 
 const iter = (diff, propertyName) => diff
   .map((node) => {
-    switch (node.status) {
+    switch (node.type) {
       case 'added': {
         return `Property '${getName(propertyName, node.key)}' was added with value: ${stringify(node.value)}`;
       }
@@ -18,7 +18,7 @@ const iter = (diff, propertyName) => diff
         return `Property '${getName(propertyName, node.key)}' was removed`;
       }
       case 'changed': {
-        return `Property '${getName(propertyName, node.key)}' was updated. From ${stringify(node.firstObjValue)} to ${stringify(node.secondObjValue)}`;
+        return `Property '${getName(propertyName, node.key)}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
       }
       case 'unchanged': {
         return null;
@@ -27,7 +27,7 @@ const iter = (diff, propertyName) => diff
         return iter(node.children, getName(propertyName, node.key));
       }
       default: {
-        throw new Error(`Wrong node type: ${node.status}.`);
+        throw new Error(`Wrong node type: ${node.type}.`);
       }
     }
   })

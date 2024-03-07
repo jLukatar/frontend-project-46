@@ -1,10 +1,10 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
 import genDiff from '../src/index.js';
 
-const readFileContent = async (filename) => {
+const readFileContent = (filename) => {
   const filePath = path.resolve(process.cwd(), '__fixtures__', filename);
-  return fs.readFile(filePath, 'utf-8');
+  return fs.readFileSync(filePath, 'utf-8');
 };
 
 const testCases = [
@@ -17,14 +17,15 @@ const testCases = [
 ];
 
 describe('genDiff', () => {
+  const getFixturePath = (file) => path.resolve(process.cwd(), '__fixtures__', file);
   test.each(testCases)(
     'should generate diff in %s format for files %s and %s',
-    async (outputFormat, file1, file2, expectedFile) => {
-      const filepath1 = `./__fixtures__/${file1}`;
-      const filepath2 = `./__fixtures__/${file2}`;
+    (outputFormat, file1, file2, expectedFile) => {
+      const filepath1 = getFixturePath(file1);
+      const filepath2 = getFixturePath(file2);
 
-      const result = await genDiff(filepath1, filepath2, outputFormat);
-      const expected = await readFileContent(expectedFile);
+      const result = genDiff(filepath1, filepath2, outputFormat);
+      const expected = readFileContent(expectedFile);
 
       expect(result).toBe(expected);
     },
