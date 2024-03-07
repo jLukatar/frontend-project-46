@@ -8,7 +8,7 @@ const formate = (data, format) => {
     case 'json':
       return JSON.parse(data);
     default:
-      throw new Error(`Unsupported file parse: ${parse}`);
+      throw new Error(`Unsupported file format: ${format}`);
   }
 };
 
